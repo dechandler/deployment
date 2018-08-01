@@ -1,0 +1,10 @@
+---
+# Nyx (Lenovo X1 Carbon, 5th Gen)
+
+- name: Nyx | Standard Configuration
+  hosts: nyx
+
+  tasks:
+
+    - include_role:
+        name: base/openssh

@@ -1,0 +1,57 @@
+{# /etc/sshd_config #}
+
+{% set ports = (sshd_ports.values() | list) + sshd_extra_ports %}
+{% for port in (ports | unique) %}
+Port {{ port }}
+{% endfor %}
+
+# HostKeys for protocol version 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+Ciphers aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512,hmac-sha2-256
+
+# Logging
+SyslogFacility AUTHPRIV
+#LogLevel INFO
+
+# Authentication:
+UsePAM yes
+UseDNS no
+AllowGroups ssh {% if sftponly_users %}sftponly{% endif %}
+PermitRootLogin no
+
+PasswordAuthentication no
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+
+PrintMotd no
+PrintLastLog no
+
+# Accept locale-related environment variables
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+AcceptEnv XMODIFIERS
+
+{% if sftponly_users %}
+Subsystem  sftp  internal-sftp
+Match Group sftponly
+    ForceCommand internal-sftp -u 002
+    ChrootDirectory /home/chroot/%u
+    PermitTTY no
+    AllowTcpForwarding no
+    X11Forwarding no
+{% endif %}
+
+{% if 'gateway' in sshd_ports.keys() %}
+Match LocalPort {{ sshd_ports.gateway }}
+    AllowGroups jump
+    AuthorizedKeysFile /etc/ssh/%u.authorized_keys
+    AllowAgentForwarding no
+    X11Forwarding no
+    PermitTunnel no
+    GatewayPorts no
+{% endif %}

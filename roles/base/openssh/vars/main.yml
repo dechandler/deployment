@@ -1,0 +1,8 @@
+---
+sshd_service:
+  Ubuntu: ssh
+  RedHat: sshd
+
+sshd_package:
+  Ubuntu: openssh-server
+  RedHat: sshd

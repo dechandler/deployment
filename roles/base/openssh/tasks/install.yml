@@ -1,0 +1,12 @@
+---
+- name: OpenSSH | Ensure SSHD Installed
+  package:
+    name: "{{ sshd_package[ansible_lsb.id] }}"
+    state: present
+  become: True
+
+- name: OpenSSH | Ensure SSHD Start on Boot
+  service:
+    name: "{{ sshd_service[ansible_lsb.id] }}"
+    enabled: "{{ 'yes' if sshd_enabled else 'no' }}"
+  become: True
