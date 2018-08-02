@@ -6,3 +6,4 @@
   with_items:
     - i3
     - py3status
+    - xrandr
