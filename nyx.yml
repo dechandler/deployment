@@ -15,3 +15,8 @@
 
     - include_role:
         name: i3-desktop/desktop
+
+    - include_role:
+        name: base/user
+      vars:
+        this_user: "{{ primary_user }}"
