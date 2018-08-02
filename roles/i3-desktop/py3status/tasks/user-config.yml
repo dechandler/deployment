@@ -1,0 +1,25 @@
+---
+- name: "i3 | py3status | {{ user.name }} | Ensure i3 Config Directory"
+  file:
+    path: "{{ user.home }}/.i3"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: 0700
+  become: True
+
+- name: "i3 | py3status | {{ user.name }} | Copy Config"
+  template:
+    src: py3status.conf
+    dest: "{{ user.home }}/.i3/py3status.conf"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: 0600
+  become: True
+
+- name: i3 | py3status | battery | Ensure brightnessctl Access
+  user:
+    name: "{{ user.name }}"
+    groups: video
+    append: True
+  become: True
+  when: user.name != 'root'
