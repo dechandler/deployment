@@ -46,6 +46,16 @@ function du_hum() {
     '
 }
 
+function newrole() {
+    ROLE="$1"
+    mkdir -p ${PWD}/roles/${ROLE}/{defaults,tasks}
+
+    echo '---' > ${PWD}/roles/${ROLE}/defaults/main.yml
+    echo -e '---\n- include_tasks: install.yml' > ${PWD}/roles/${ROLE}/tasks/main.yml
+    echo '---' > ${PWD}/roles/${ROLE}/tasks/install.yml
+    echo '---' > ${PWD}/roles/${ROLE}/tasks/user-config.yml
+}
+
 function ergoflash() {
     ZIPFILE=$1
     CURRENTZIP="$HOME/.local/share/ergodox-current.zip"
