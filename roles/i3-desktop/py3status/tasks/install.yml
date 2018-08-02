@@ -26,7 +26,9 @@
   become: True
 
 - name: i3 | py3status | Install Scripts
-  include_tasks: "{{ item }}.yml"
+  include_tasks: "{{ module }}.yml"
+  loop_control:
+    loop_var: module
   with_items:
     - batt
     - redshift
