@@ -12,3 +12,6 @@
         name: shell/zsh
     - include_role:
         name: shell/utils
+
+    - include_role:
+        name: i3-desktop/desktop

@@ -1,0 +1,7 @@
+---
+- include_role:
+    name: "i3-desktop/{{ role }}"
+  loop_control:
+    loop_var: role
+  with_items:
+    - i3
