@@ -1,0 +1,6 @@
+---
+- name: Xbindkeys | Install
+  package:
+    name: xbindkeys
+    state: present
+  become: True
