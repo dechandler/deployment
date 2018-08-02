@@ -10,3 +10,5 @@
         name: base/openssh
     - include_role:
         name: shell/zsh
+    - include_role:
+        name: shell/utils

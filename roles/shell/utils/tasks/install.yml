@@ -1,0 +1,10 @@
+---
+- name: Shell Utilities | Install
+  package:
+    name: "{{ item }}"
+    state: present
+  become: True
+  with_items: "{{ packages[ansible_lsb.id + ansible_lsb.release] }}"
+
+- include_role:
+    name: shell/vim

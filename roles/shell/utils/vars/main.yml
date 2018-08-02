@@ -1,0 +1,5 @@
+---
+packages:
+  Ubuntu18.04:
+      - curl
+      - nmap
