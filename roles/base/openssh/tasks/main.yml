@@ -1,5 +1,11 @@
 ---
 - include_tasks: install.yml
+
+- file:
+    state: directory
+    path: /run/sshd
+  become: True
+
 - include_tasks: server-config.yml
 
 
