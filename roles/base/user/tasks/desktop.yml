@@ -1,7 +1,7 @@
 ---
-#- include_role:
-#    name: i3-desktop/desktop
-#    tasks_from: user-config.yml
+- include_role:
+    name: i3-desktop/desktop
+    tasks_from: user-config.yml
 
 - name: User | {{ user.name }} | Directories
   file:
