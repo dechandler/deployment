@@ -5,4 +5,5 @@
     tasks_from: user-config.yml
   loop_control:
     loop_var: role
-  with_items: []
+  with_items:
+    - i3
