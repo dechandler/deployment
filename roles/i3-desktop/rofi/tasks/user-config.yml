@@ -1,0 +1,17 @@
+---
+- name: "i3 | rofi | {{ user.name }} | Ensure rofi Config Directory"
+  file:
+    path: "{{ user.home }}/.config/rofi"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: 0700
+  become: True
+
+- name: "i3 | rofi | {{ user.name }} | Copy Config"
+  copy:
+    src: config
+    dest: "{{ user.home }}/.config/rofi/"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: 0600
+  become: True
