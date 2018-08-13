@@ -10,3 +10,9 @@
     name: "{{ sshd_service[ansible_lsb.id] }}"
     enabled: "{{ 'yes' if sshd_enabled else 'no' }}"
   become: True
+
+- name: OpenSSH | Create /run/sshd
+  file:
+    state: directory
+    path: /run/sshd
+  become: True

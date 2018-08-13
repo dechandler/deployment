@@ -1,5 +1,5 @@
 ---
-- name: SSHD | Config File
+- name: OpenSSH | SSHD Config File
   template:
     src: sshd_config.j2
     dest: /etc/ssh/sshd_config
@@ -7,7 +7,7 @@
   become: True
   notify: ['sshd restart']
 
-- name: SSHD | Ensure SSHable Group
+- name: OpenSSH | Ensure SSHable Group
   group:
     name: ssh
   become: True

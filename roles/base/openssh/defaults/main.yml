@@ -1,10 +1,9 @@
 ---
-sshd_ports:
-  primary: 22
-
-sshd_extra_ports: []
+sshd_port: 22
 
 sshd_enabled: False
 
 sshd_jump_users: []
 sftponly_users: []
+
+sshd_listenaddress: ""
