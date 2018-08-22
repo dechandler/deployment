@@ -1,2 +1,2 @@
-authorized_keys.*
-dnsmasq.static-hosts
+gaia/authorized_keys.*
+gaia/dnsmasq.static-hosts
