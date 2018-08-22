@@ -1,0 +1,12 @@
+---
+- name: "Desktop User Config: {{ user.name }} | {{ item }}"
+  include_role:
+    name: "i3-desktop/{{ role }}"
+    tasks_from: user-config.yml
+  loop_control:
+    loop_var: role
+  with_items:
+    - i3
+    - py3status
+    - xbindkeys
+    - rofi

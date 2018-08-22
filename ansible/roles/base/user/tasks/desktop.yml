@@ -1,0 +1,41 @@
+---
+- include_role:
+    name: i3-desktop/desktop
+    tasks_from: user-config.yml
+
+- name: User | {{ user.name }} | Directories
+  file:
+    path: "{{ user.home }}/{{ item }}"
+    state: directory
+    mode: 0700
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+  with_items:
+    - mnt
+    - bin
+    - shm
+    - src
+    - tmp
+    - var/ansible
+    - var/docs
+    - var/downloads
+    - var/env
+    - var/images
+  become: True
+
+- name: User | {{ user.name }} | Create User SHM
+  lineinfile:
+    path: /etc/fstab
+    line: "tmpfs  {{ user.home }}/shm  tmpfs  rw,uid={{ user.uid }},gid={{ user.uid }},mode=0700 nb 0 0"
+    state: present
+    regexp: ^.*{{ user.home }}/shm.*$
+  become: True
+
+- name: Alternate Home Directory Structure | {{ user.name }} | XDG Config
+  copy:
+    src: user-dirs.dirs
+    dest: "{{ user.home }}/.config/"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: 600
+  become: True

@@ -1,0 +1,13 @@
+---
+- name: OpenSSH | SSHD Config File
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    validate: /usr/sbin/sshd -t -f %s
+  become: True
+  notify: ['sshd restart']
+
+- name: OpenSSH | Ensure SSHable Group
+  group:
+    name: ssh
+  become: True

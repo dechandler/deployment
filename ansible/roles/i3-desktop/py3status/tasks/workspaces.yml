@@ -1,0 +1,28 @@
+---
+- name: i3 | py3status | workspaces | Package Dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:  # ubuntu
+    - python3-jinja2
+  become: True
+
+- name: i3 | py3status | workspaces | Python Dependencies
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+  with_items:
+    - i3-py
+    - i3ipc
+  become: True
+
+- name: i3 | py3status | workspaces | Copy Modules And Utilities
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/libexec/py3status/{{ item }}
+    mode: 0755
+  with_items:
+    - workspaces.py
+    - i3-subscribe.pl
+    - workspaces-daemon.sh
+  become: True

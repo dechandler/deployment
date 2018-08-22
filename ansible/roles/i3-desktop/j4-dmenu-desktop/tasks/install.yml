@@ -1,0 +1,6 @@
+---
+- name: j4-dmenu-desktop | Install
+  package:
+    name: j4-dmenu-desktop
+    state: present
+  become: True

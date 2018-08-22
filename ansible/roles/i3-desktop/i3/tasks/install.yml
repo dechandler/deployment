@@ -1,0 +1,6 @@
+---
+- name: Install i3 package
+  package:
+    name: i3
+    state: present
+  become: True

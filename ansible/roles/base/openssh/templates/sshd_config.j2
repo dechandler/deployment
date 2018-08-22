@@ -1,0 +1,38 @@
+{# /etc/ssh/sshd_config #}
+
+Port {{ sshd_port }}
+
+{% if sshd_listenaddress %}
+ListenAddress {{ sshd_listenaddress }}
+{% endif %}
+
+# HostKeys for protocol version 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+Ciphers aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512,hmac-sha2-256
+
+# Logging
+SyslogFacility AUTHPRIV
+#LogLevel INFO
+
+# Authentication:
+UsePAM yes
+UseDNS no
+AllowGroups ssh
+PermitRootLogin no
+
+PasswordAuthentication no
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+
+PrintMotd no
+PrintLastLog no
+
+# Accept locale-related environment variables
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+AcceptEnv XMODIFIERS
