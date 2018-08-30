@@ -11,3 +11,10 @@
     - j4-dmenu-desktop
     - xbindkeys
     - rofi
+
+- name: Disable Suspend on Lid Close
+  lineinfile:
+    path: /etc/systemd/logind.conf
+    line: HandleLidSwitch=ignore
+    regexp: "^#?HandleLidSwitch"
+  become: True
