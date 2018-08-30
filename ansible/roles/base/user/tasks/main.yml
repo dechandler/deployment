@@ -59,3 +59,8 @@
     name: shell/zsh
     tasks_from: user-config.yml
   when: user.shell == "/usr/bin/zsh"
+
+- include_role:
+    name: shell/gpg
+    tasks_from: user-config.yml
+  when: user.gpg_keys
