@@ -52,7 +52,7 @@
 
 - name: SSH Client | {{ user.name }} | Config
   template:
-    src: "client-config.j2"
+    src: "private/ssh-client-config.j2"
     dest: "{{ user.home }}/.ssh/config"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
