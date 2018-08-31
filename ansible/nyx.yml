@@ -19,4 +19,4 @@
     - include_role:
         name: base/user
       vars:
-        this_user: "{{ primary_user }}"
+        user: "{{ primary_user }}"

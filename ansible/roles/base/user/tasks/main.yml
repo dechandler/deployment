@@ -1,32 +1,5 @@
 ---
-- set_fact:
-    default_user_data:
-      shell: /bin/bash
-      comment: ''
-      home: "/home/{{ this_user.name }}"
-      authorized_keys: []
-      ssh_private_keys: [] 
-
-- set_fact:
-    user: "{{ default_user_data | combine(this_user) }}"
-
-- debug:
-    var: default_user_data
-- debug:
-    var: user
-
 - name: User | {{ user.name }} | Create
-  user:
-    name: "{{ user.name }}"
-    shell: "{{ user.shell }}"
-    comment: "{{ user.comment }}"
-    state: present
-    password: "{{ pass_hashes[user.name] }}"
-    home: "{{ user.home }}"
-  when: "'uid' not in user.keys()"
-  become: True
-
-- name: User | {{ user.name }} | Create (UID Specified)
   user:
     name: "{{ user.name }}"
     shell: "{{ user.shell }}"
