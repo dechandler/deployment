@@ -1,3 +1,7 @@
 packages:
-  Ubuntu18.04:
+  Ubuntu:
       - vim
+  Debian:
+      - vim
+  RedHat:
+      - vim-enhanced

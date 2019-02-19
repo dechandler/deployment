@@ -4,4 +4,4 @@
     name: "{{ item }}"
     state: present
   become: True
-  with_items: "{{ packages[ansible_lsb.id + ansible_lsb.release] }}"
+  with_items: "{{ packages[ansible_facts.os_family] }}"
