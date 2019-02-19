@@ -52,7 +52,7 @@ class Py3status:
     def _set_temp(self, temp):
 
         temp = bounds(temp, self.min_temp, self.max_temp)
-        self.py3.command_run("redshift -O {}".format(temp))
+        self.py3.command_run("redshift -P -O {}".format(temp))
         self.temp = temp
 
     def _get_color(self):
