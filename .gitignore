@@ -1,5 +1,0 @@
-gaia/authorized_keys.*
-gaia/dnsmasq.static-hosts
-ansible/private
-ansible/group_vars
-ansible/host_vars
