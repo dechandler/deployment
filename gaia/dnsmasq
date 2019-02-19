@@ -4,13 +4,13 @@ expand-hosts
 stop-dns-rebind
 rebind-localhost-ok
 
-domain=trusted,192.168.0.0/24
-domain=dmz,192.168.1.0/24
-
-interface=lan-bridge
+interface=br-lan
 dhcp-authoritative
-dhcp-lease-max=255
+dhcp-lease-max=100
 
-dhcp-range=192.168.0.1,static
-dhcp-range=192.168.1.1,static
-dhcp-range=192.168.1.50,192.168.1.99,255.255.255.0,1h
+dhcp-range=192.168.0.2,static,255.255.255.248
+dhcp-range=192.168.0.10,static,255.255.255.248
+dhcp-range=192.168.0.18,static,255.255.255.248
+dhcp-range=192.168.0.26,static,255.255.255.248
+dhcp-range=192.168.0.34,static,255.255.255.248
+dhcp-range=192.168.0.226,192.168.0.254,255.255.255.224,1h
