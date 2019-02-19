@@ -2,7 +2,9 @@
 sshd_service:
   Ubuntu: ssh
   RedHat: sshd
+  Debian: ssh
 
 sshd_package:
   Ubuntu: openssh-server
-  RedHat: sshd
+  RedHat: openssh-server
+  Debian: openssh-server

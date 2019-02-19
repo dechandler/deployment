@@ -1,6 +1,6 @@
 ---
 - name: sshd restart
   service:
-    name: "{{ 'ssh' if ansible_distribution == 'Ubuntu' else 'sshd' }}"
+    name: "{{ sshd_service[ansible_distribution] }}"
     state: restarted
   become: True

@@ -19,7 +19,7 @@
       - ssh
     append: True
   become: True
-  when: user.authorized_keys
+  when: "'authorized_keys' in user"
  
 - name: SSH Client | {{ user.name }} | Authorized Keys
   authorized_key:
@@ -39,6 +39,7 @@
     mode: 0600
   with_items: "{{ user.ssh_private_keys }}"
   become: True
+  when: "'ssh_private_keys' in user"
 
 - name: SSH Client | {{ user.name }} | Copy Corresponding SSH Public Keys
   copy:
@@ -49,6 +50,7 @@
     mode: 0600
   with_items: "{{ user.ssh_private_keys }}"
   become: True
+  when: "'ssh_private_keys' in user"
 
 - name: SSH Client | {{ user.name }} | Config
   template:
