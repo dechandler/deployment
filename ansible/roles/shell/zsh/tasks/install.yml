@@ -6,6 +6,7 @@
   with_items:
     - zsh
     - git
+  become: True
 
 - name: ZSH | Install Common oh-my-zsh
   git:
