@@ -1,0 +1,43 @@
+---
+- name: Check for MicroSD Card
+  stat: 
+    path: "{{ microsd_dev }}"
+  register: microsd
+
+- name: Copy Raspbian Lite Image to MicroSD Card
+  command: dd if={{ raspbian_img }} of={{ microsd_dev }}
+  become: True
+  when: microsd.stat.exists == True
+
+- name: Enable Wifi
+  block:
+    - name: Ensure Temp Mount Dir
+      file:
+        path: "{{ tmp_mount }}"
+        state: directory
+
+    - name: Mount MicroSD Root
+      command: mount {{ microsd_root_dev }} {{ tmp_mount }}
+
+    - name: Add Wifi Credentials
+      blockinfile:
+        block: |
+          network={
+            ssid="{{ wifi[.ssid }}"
+            psk="{{ wifi.home.pass }}"
+          }
+        path: "{{ tmp_mount }}/etc/wpa_supplicant/wpa_supplicant.conf"
+
+  always:
+    - name: Unmount MicroSD
+      mount:
+        path: "{{ tmp_mount }}"
+        state: unmounted
+
+    - name: Clean Up Temp Mount Dir
+      file:
+        path: "{{ tmp_mount }}"
+        state: absent
+
+  become: True
+  when: wifi_network

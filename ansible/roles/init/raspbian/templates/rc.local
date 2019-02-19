@@ -1,0 +1,14 @@
+#!/bin/bash
+
+userdel -r pi
+
+systemctl enable ssh
+systemctl start ssh
+
+useradd -u 1100 -G ssh,sudo -m -p '{{ pass_hashes.automation }}' automation
+mkdir /home/automation/.ssh
+echo '{{ ssh_keys.automation.pub }}' > /home/automation/.ssh/authorized_keys
+chown -R automation:automation /home/automation
+chmod -R u=rwX,g=,o= /home/automation/.ssh
+
+echo '' > /etc/rc.local

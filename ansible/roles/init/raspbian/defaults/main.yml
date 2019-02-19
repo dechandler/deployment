@@ -1,0 +1,6 @@
+---
+raspbian_img: "{{ role_path }}/files/raspbian.img"
+microsd_dev: /dev/mmcblk0
+microsd_root_dev: /dev/mmcblk0p2
+tmp_mount: /dev/shm/.raspbian_tmp_mount
+wifi_network: False
