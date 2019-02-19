@@ -20,7 +20,7 @@
 - name: User | {{ user.name }} | Admin User Role
   user:
     name: "{{ user.name }}"
-    groups: "{{ 'sudo' if ansible_distribution == 'Ubuntu' else 'wheel' }}"
+    groups: "{{ admin_group[ansible_distribution] }}"
     append: True
   become: True
   when: "'admin' in user.roles"
@@ -36,4 +36,4 @@
 - include_role:
     name: shell/gpg
     tasks_from: user-config.yml
-  when: user.gpg_keys
+  when: "'gpg_keys' in user"

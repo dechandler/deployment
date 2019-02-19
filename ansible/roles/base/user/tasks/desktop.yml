@@ -37,5 +37,11 @@
     dest: "{{ user.home }}/.config/"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: 600
+    mode: 0600
   become: True
+
+- include_role:
+    name: apps/{{ item }}
+    tasks_from: user-config.yml
+  with_items: "{{ desktop_apps }}"
+  
