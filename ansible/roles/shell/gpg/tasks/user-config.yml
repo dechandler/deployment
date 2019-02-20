@@ -1,5 +1,0 @@
----
-- name: GnuPG | Import Private Keys
-  shell: echo '{{ gpg_keys[item].key }}' | gpg2 --import -a
-  with_items: "{{ user.gpg_keys }}"
-  become: "{{ user.name }}"
