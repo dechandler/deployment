@@ -1,6 +1,11 @@
 ---
-- name: Install i3 package
+- name: i3 | Install packages
   package:
-    name: i3
+    name: "{{ item }}"
     state: present
   become: True
+  with_items:
+    - i3
+    - i3lock
+    - network-manager-applet
+    - NetworkManager-openvpn

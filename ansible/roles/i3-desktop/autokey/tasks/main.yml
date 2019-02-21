@@ -1,0 +1,6 @@
+---
+- name: Autokey | Install
+  package:
+    name: autokey-gtk
+    state: present
+  become: True

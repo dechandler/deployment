@@ -57,7 +57,7 @@ floating_modifier $Alt
 {% endblock %}
 
 
-exec /home/david/.local/libexec/xrandr.sh
+#exec /home/david/.local/libexec/xrandr.sh
 
 {% block startup %}
 #exec firefox-sync work
@@ -217,7 +217,6 @@ mode $sysmenu {
 bar {
     output $bar_output
     position top
-    #{% if 'docked' not in context %}mode hide{% endif %}
 
     status_command py3status -c ~/.i3/py3status.conf -i /usr/local/libexec/py3status
     tray_output $bar_output
@@ -227,7 +226,6 @@ bar {
         urgent_workspace   #2f343a #900000 #ffffff
     }
 }
-#{% if 'docked' not in context %}bindsym Control+$Alt+space bar hidden_state toggle{% endif %}
 
 
 ##
@@ -262,7 +260,7 @@ bindsym XF86AudioMute         exec amixer -D pulse sset Master toggle
 {% endblock %}
 
 {% block i3lock %}
-bindsym Control+$Alt+Delete exec i3lock -c000000
+bindsym Control+$Alt+F12 exec i3lock -c000000
 {% endblock %}
 
 ##
@@ -271,8 +269,8 @@ bindsym Control+$Alt+Delete exec i3lock -c000000
 {% block app_start_keybindings %}
 bindsym $Alt+Return     exec terminator
 
-bindsym $Alt+d          exec j4-dmenu-desktop --dmenu='$DMENU -i -p "Run: "'
-bindsym $Alt+p          exec /home/david/bin/passmenu
+bindsym $Alt+d          exec j4-dmenu-desktop --dmenu='$DMENU -i -p "Run"'
+bindsym $Alt+p          exec DMENU='$DMENU' /usr/local/bin/passmenu
 
 #bindsym $Alt+semicolon  exec semiautokey
 
