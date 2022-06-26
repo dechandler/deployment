@@ -199,8 +199,8 @@ class Workspaces(object):
         multi_subs = [  # if win_class in [0], return [1]
             [["Pidgin"], "\uf075 "],  # fa-comment
             [["Sublime_text", "Atom"], "\uf044"],  # fa-pencil-square-o # \uf121 fa-code
-            [["Firefox"], "\uf269 "],  # fa-firefox
-            [["Google-chrome"], "\uf268"],  # fa-chrome
+            [["Firefox", "firefox"], "\uf269 "],  # fa-firefox
+            [["oogle-chrome", "hromium-browser"], "\uf268"],  # fa-chrome
             [["libreoffice-calc"], "\uf0ce "],  # fa-table
             [["libreoffice-writer"], "\uf036 "],  # fa-align-left
             [["Virt-manager"], "\uf24d "],  # fa-clone
@@ -216,20 +216,15 @@ class Workspaces(object):
             [["X-terminal-emulator", "Terminator"], "~$"],
             [["KeePass2", "Keepassx2"], "\uf084"],  # fa-key
             [["Spotify"], "\uf1bc"],  # fa-spotify
+            [["Minecraft"], "\uf1b3 "],  # fa-cubes
+            [["obsidian"], "\uf044"], # fa-pencil-square-o # \uf121 fa-code
         ]
         for sub in multi_subs:
-            if win_class in sub[0]:
-                return sub[1]
+            for substr in sub[0]:
+                if substr in win_class:
+                    return sub[1]
 
-        substr_subs = [  # if [0] in win_class, return [1]
-            ["Minecraft", "\uf1b3 "],  # fa-cubes
-            ["oogle-chrome", "\uf268 "]  # fa-chrome
-        ]
-        for sub in substr_subs:
-            if sub[0] in win_class:
-                return sub[1]
-
-        if ( win_class     == "processing-app-Base" and
+        if (   win_class     == "processing-app-Base" and
                win_instances == "sun-awt-X11-XFramePeer" ):
             return "Arduino"
 

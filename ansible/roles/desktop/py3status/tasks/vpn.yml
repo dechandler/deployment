@@ -1,0 +1,7 @@
+---
+- name: i3 | py3status | VPN | Copy Script
+  copy:
+    src: vol.py
+    dest: /usr/local/libexec/py3status/vpn.py
+    mode: 0755
+  become: True

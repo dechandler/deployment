@@ -2,18 +2,21 @@
 
 class Py3status:
 
+    wifi_icon = "\uf1eb"
+
     def main(self):
 
         status = self.py3.command_output("nmcli --terse --fields 'active,ssid,bars,security' device wifi")
         active = [l.split() for l in status.splitlines() if l[:3] == "yes"]
-        return {'full_text': active}
-        if not active[3]:
-            color = "red"
+        if not active:
+            color = "#666666"
+        elif len(active) > 3:
+            color = "#00FF00"
         else:
-            color = "green"
+            color = "#FF0000"
 
         return {
-            'full_text':  bars,
+            'full_text':  self.wifi_icon,
             'color': color
         }
 

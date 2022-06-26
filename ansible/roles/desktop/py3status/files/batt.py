@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 
 class Py3status:
 
@@ -31,7 +32,8 @@ class Py3status:
 
     def main(self):
 
-        bat = self._acpi_out()
+        #bat = self._acpi_out()
+        bat = self._get_battery_status()
 
         text = [self.symbol_charging] if bat['charging'] else [self.symbol_discharging]
 
@@ -84,6 +86,41 @@ class Py3status:
         percent = "%" if percent else ""
         cmd = "brightnessctl s {}{}".format(str(new_bl or 1), percent)
         self.py3.command_run(cmd)
+
+    def _get_battery_status(self):
+
+        base_dir = "/sys/class/power_supply"
+
+        with open(f"{base_dir}/AC/online") as fh:
+            charging = bool(int(fh.read().strip()))
+
+        batteries = [
+            self._get_battery(f"{base_dir}/{dev}")
+            for dev in os.listdir(base_dir)
+            if "BAT" in dev
+        ]
+
+        now = sum([int(batt['energy_now']) for batt in batteries])
+        full = sum([int(batt['energy_full']) for batt in batteries])
+        percent = (now / full) * 100
+
+        return {
+            'charging': charging,
+            'percent': percent,
+            'time_until': ""
+        }
+
+    def _get_battery(self, dev_path):
+
+        batt = {}
+
+        attributes = ["energy_now", "energy_full", "energy_full_design"]
+
+        for attr in attributes:
+            with open(f"{dev_path}/{attr}") as fh:
+                batt[attr] = fh.read().strip()
+
+        return batt
 
     def _acpi_out(self):
         """
