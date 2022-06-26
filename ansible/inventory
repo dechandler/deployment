@@ -1,6 +1,6 @@
 [local]
 localhost
-nyx
+hemera
 
 [local:vars]
 ansible_connection=local
