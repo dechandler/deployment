@@ -1,0 +1,67 @@
+---
+# - name: Update System Packages
+#   import_playbook: update.yml
+
+- name: Common Roles
+  hosts: all
+  roles:
+    - base/system
+    - service/sshd
+    - shell/zsh
+    - shell/utils
+    - shell/neovim
+      #    - shell/user
+
+
+- name: Desktop System
+  hosts: desktop
+  roles:
+    - desktop/i3
+    - desktop/sway
+    - desktop/py3status
+    - desktop/xrandr
+    - desktop/terminator
+    - desktop/j4-dmenu-desktop
+    - desktop/xbindkeys
+    - desktop/rofi
+    - desktop/autokey
+      #    - desktop/printer
+    - desktop/ubuntu-fonts
+    - desktop/misc
+
+      #- apps/spotify
+    - apps/sublime-text
+
+
+- name: Desktop and GUI Configs for Primary User
+  hosts: desktop
+  tasks:
+    - include_role:
+        name: desktop/user
+      vars:
+        user: "{{ primary_user }}"
+
+
+- name:
+  hosts: servers, desktop
+  roles:
+    - service/syncthing
+
+
+- name: Chronos-Specific Setup
+  hosts: chronos
+  roles:
+    - service/git
+
+
+- name: Hypnos-Specific Setup
+  hosts: hypnos
+  roles:
+    - jobs/yard-photos
+
+
+- name: Uranus-Specific Setup
+  hosts: uranus
+  roles:
+    #- service/git
+    - service/sshd-jump

@@ -1,0 +1,3 @@
+{% for keyname in user.authorized_keys %}
+{{ ssh_keys[keyname].pub }}
+{% endfor %}

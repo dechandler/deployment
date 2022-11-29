@@ -1,0 +1,12 @@
+---
+- include_tasks: common.yml
+  vars:
+    role: updates
+    files:
+      - setup.sh
+      - update.sh
+      - update-reboot.sh
+    executable_files:
+      - setup.sh
+      - update.sh
+      - update-reboot.sh

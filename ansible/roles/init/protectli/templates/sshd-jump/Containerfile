@@ -1,0 +1,10 @@
+FROM alpine:latest
+
+RUN apk add --no-cache openssh
+
+COPY container-entrypoint.sh /container-entrypoint.sh
+
+VOLUME /etc/ssh/sshd_config
+VOLUME /etc/ssh/authorized_keys
+
+ENTRYPOINT ["/container-entrypoint.sh"]

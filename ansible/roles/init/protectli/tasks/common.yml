@@ -1,0 +1,22 @@
+---
+- name: Ensure Directory
+  delegate_to: localhost
+  file:
+    path: "{{ local_build_dir }}/{{ role }}"
+    state: directory
+
+
+- name: Template Files into Build Directory
+  delegate_to: localhost
+  template:
+    src: "{{ role }}/{{ item }}"
+    dest: "{{ local_build_dir }}/{{ role }}/{{ item }}"
+  loop: "{{ files }}"
+
+
+- name: Set executable for scripts
+  delegate_to: localhost
+  file:
+    path: "{{ local_build_dir }}/{{ role }}/{{ item }}"
+    mode: 0750
+  loop: "{{ executable_files }}"

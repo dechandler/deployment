@@ -1,0 +1,24 @@
+---
+- include_tasks: common.yml
+  vars:
+    role: sshd-jump
+    files:
+      - setup.sh
+      - Containerfile
+      - container-entrypoint.sh
+      - sshd_config
+      - sshd-jump.rc
+    executable_files:
+      - setup.sh
+      - container-entrypoint.sh
+      - sshd-jump.rc
+
+
+- name: Jump Users Authorized Keys
+  delegate_to: localhost
+  template:
+    src: authorized_keys
+    dest: "{{ local_build_dir }}/sshd-jump/authorized_keys/{{ user.name }}"
+  loop: "{{ jump_users }}"
+  loop_control:
+    loop_var: user

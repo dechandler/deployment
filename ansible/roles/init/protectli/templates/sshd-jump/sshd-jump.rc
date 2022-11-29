@@ -1,0 +1,14 @@
+#!/sbin/openrc-run 
+
+name=sshd-jump
+
+command_background="yes"
+
+command="/usr/bin/podman"
+command_args="
+    run
+    -v /var/sshd-jump/sshd_config:/etc/ssh/sshd_config:ro
+    -v /var/sshd-jump/authorized_keys:/etc/ssh/authorized_keys:ro
+    -p 832:832
+    sshd:latest
+"

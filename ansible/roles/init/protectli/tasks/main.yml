@@ -1,0 +1,28 @@
+---
+- include_tasks: parameters.yml
+
+
+- name: Ensure Directories
+  delegate_to: localhost
+  file:
+    path: "{{ local_build_dir }}"
+    state: directory
+
+
+- name: Main setup script
+  delegate_to: localhost
+  template:
+    src: setup.sh
+    dest: "{{ local_build_dir }}/setup.sh"
+    mode: 0750
+
+
+- include_tasks: router.yml
+- include_tasks: sshd-login.yml
+
+- include_tasks: podman.yml
+- include_tasks: sshd-jump.yml
+
+#- include_tasks: pihole.yml
+
+- include_tasks: updates.yml
