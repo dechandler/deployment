@@ -7,7 +7,7 @@
 
 - name: Xrandr | Screenlayout Script
   copy:
-    src: "{{ ansible_hostname }}.sh"
+    src: "{{ inventory_hostname }}.sh"
     dest: "/usr/local/bin/screenlayout.sh"
     mode: 0755
   become: True

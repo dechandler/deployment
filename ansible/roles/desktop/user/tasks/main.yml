@@ -1,8 +1,4 @@
 ---
-- include_role:
-    name: i3-desktop/desktop
-    tasks_from: user-config.yml
-
 - name: User | {{ user.name }} | Directories
   file:
     path: "{{ user.home }}/{{ item }}"
@@ -10,17 +6,11 @@
     mode: 0700
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-  with_items:
-    - mnt
-    - bin
-    - shm
-    - src
-    - tmp
-    - var/ansible
-    - var/docs
-    - var/downloads
-    - var/env
-    - var/images
+  with_items: [
+    "mnt", "bin", "shm", "src", "tmp", "var/ansible",
+    "var/docs", "var/downloads", "var/env", "var/images",
+    "var/sync"
+  ]
   become: True
 
 - name: User | {{ user.name }} | Create User SHM
@@ -40,8 +30,17 @@
     mode: 0600
   become: True
 
-- include_role:
-    name: apps/{{ item }}
-    tasks_from: user-config.yml
-  with_items: "{{ desktop_apps }}"
-  
+- name: "Desktop User Config: {{ user.name }} | {{ item }}"
+  include_role:
+    name: "user/{{ role }}"
+  loop_control:
+    loop_var: role
+  with_items:
+    - autokey
+    - i3
+    - py3status
+    - rofi
+    - sublime-text
+    - terminator
+    - xbindkeys
+    - dmenu-utils

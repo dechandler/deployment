@@ -1,18 +1,18 @@
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
-DOCUMENTATION = """
-      lookup: img_mount_offset
-        author: David Chandler <contact@dechandler.io>
-        version_added: "0.1"
-        short_description: get partition offsets for img file
-        description:
-            - This lookup returns the contents from a file on the Ansible controller's file system.
-        options:
-          _terms:
-            description: path(s) of files to get partition offsets of
-            required: True
-"""
+# DOCUMENTATION = """
+#       lookup: img_mount_offset
+#         author: David Chandler <contact@dechandler.io>
+#         version_added: "0.1"
+#         short_description: get partition offsets for img file
+#         description:
+#             - This lookup returns the contents from a file on the Ansible controller's file system.
+#         options:
+#           _terms:
+#             description: path(s) of files to get partition offsets of
+#             required: True
+# """
 import subprocess
 
 from ansible.errors import AnsibleError, AnsibleParserError

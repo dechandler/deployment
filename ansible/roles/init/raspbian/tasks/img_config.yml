@@ -4,8 +4,11 @@
     current_raspbian_version: "{{ lookup('file', role_path + '/files/version') }}"
     latest_raspbian_version: "{{ lookup('raspbian_version', 'latest') }}"
 
+- debug: var=current_raspbian_version
+- debug: var=latest_raspbian_version
 
 - name: Ensure Latest Image
+  delegate_to: localhost
   block:
     - name: Download and Extract Image
       unarchive:
@@ -30,13 +33,17 @@
   set_fact:
     offsets: "{{ lookup('img_mount_offset', raspbian_img) }}"
 
+- debug: var=offsets
 
 - name: Install First-Run Script
+  delegate_to: localhost
   block:
     - name: Create Temporary Mountpoint
       file:
         path: "{{ tmp_mount }}"
         state: directory
+
+    - debug: var=raspbian_img
 
     - name: Mount Image Root
       command: mount -o loop,offset={{ offsets.1 }} {{ raspbian_img }} {{ tmp_mount }}

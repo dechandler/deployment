@@ -1,20 +1,4 @@
 ---
-- include_role:
-    name: "i3-desktop/{{ role }}"
-  loop_control:
-    loop_var: role
-  with_items:
-    - i3
-    - py3status
-    - xrandr
-    - terminator
-    - j4-dmenu-desktop
-    - xbindkeys
-    - rofi
-    - autokey
-    - printer
-    - ubuntu-fonts
-
 - name: Disable Suspend on Lid Close
   lineinfile:
     path: /etc/systemd/logind.conf

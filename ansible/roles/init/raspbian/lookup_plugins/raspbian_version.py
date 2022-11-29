@@ -1,14 +1,14 @@
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
-DOCUMENTATION = """
-      lookup: raspbian_version
-        author: David Chandler <contact@dechandler.io>
-        version_added: "0.1"
-        short_description: get latest raspbian lite version
-        description:
-            - This lookup returns the timestamp of the latest raspbian lite version available
-"""
+# DOCUMENTATION = """
+#     lookup: raspbian_version
+#     author: David Chandler <contact@dechandler.io>
+#     version_added: "0.1"
+#     short_description: get latest raspbian lite version
+#     description:
+#         - This lookup returns the timestamp of the latest raspbian lite version available
+# """
 import requests
 
 from ansible.errors import AnsibleError, AnsibleParserError

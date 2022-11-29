@@ -64,22 +64,19 @@ class Py3status:
         bl_current = int(bl_out[2])
         bl_percent = int(bl_out[3].strip('%'))
 
-        button = event['button']
+        match event['button']:
+            case 1:  # Left Click
+                if bl_percent > self.mid_temp:
+                    self._backlight_set(self.low_temp, percent=True)
+                else:
+                    self._backlight_set(self.high_temp)
 
-        if button == 1:
-            # Left Click
-            if bl_percent > self.mid_temp:
-                self._backlight_set(self.low_temp, percent=True)
-            else:
-                self._backlight_set(self.high_temp)
+            case 4:  # Scroll Up
+                self._backlight_set(bl_current + self.increment)
 
-        elif button == 4:
-            # Scroll Up
-            self._backlight_set(bl_current + self.increment)
+            case 5:  # Scroll Down
+                self._backlight_set(bl_current - self.increment)
 
-        elif button == 5:
-            # Scroll Down
-            self._backlight_set(bl_current - self.increment)
 
     def _backlight_set(self, new_bl, percent=False):
 
